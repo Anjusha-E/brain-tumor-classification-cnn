@@ -23,6 +23,9 @@ __pycache__/
 # Dataset
 data/
 
+# Learning practice files
+src/practice/
+
 # OS Files
 .DS_Store
 Thumbs.db
