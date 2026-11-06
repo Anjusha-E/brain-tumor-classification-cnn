@@ -1,0 +1,5 @@
+Test Loss: 0.19537821412086487
+Test Accuracy: 0.9511823058128357
+Total Test Images: 1311
+Correct Predictions: 1247
+Misclassified Images: 64
