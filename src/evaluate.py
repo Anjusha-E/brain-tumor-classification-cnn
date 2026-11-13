@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 from src.dataset_builder import build_dataset
-from tensorflow.keras.models import load_model
+from src.model_loader import get_model
 from sklearn.metrics import confusion_matrix, classification_report
 from src.config import CLASS_TO_LABEL
 
@@ -34,7 +34,7 @@ x_train, y_train, x_test, y_test, train_paths, test_paths = build_dataset()
 
 
 # Load the trained model
-model = load_model("models/brain_tumor_cnn.keras")
+model = get_model()
 
 
 # Evaluate the model on test data

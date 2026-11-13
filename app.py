@@ -3,14 +3,14 @@ from fastapi import FastAPI, UploadFile, File, HTTPException
 import numpy as np
 import cv2
 from src.image_preprocessor import preprocess_image_array
-from tensorflow.keras.models import load_model
+from src.model_loader import get_model
 from src.config import CLASS_TO_LABEL
 
 # Create the FastAPI application
 app = FastAPI()
 
 # Load the trained CNN model
-model = load_model("models/brain_tumor_cnn.keras")
+model = get_model()
 
 # Convert numeric labels into class names
 LABEL_TO_CLASS = {

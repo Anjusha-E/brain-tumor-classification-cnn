@@ -1,11 +1,11 @@
 import sys
-from tensorflow.keras.models import load_model
+from src.model_loader import get_model
 from src.image_preprocessor import preprocess_image
 from src.config import CLASS_TO_LABEL
 
 
 # Load the trained model
-model = load_model("models/brain_tumor_cnn.keras")
+model = get_model()
 
 
 # Create label-to-class mapping
