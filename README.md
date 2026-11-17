@@ -1,6 +1,8 @@
+
+
 # Brain MRI Classification System
 
-A deep learning-based image classification application that uses a Convolutional Neural Network (CNN) to classify brain MRI images into four categories: Glioma, Meningioma, No Tumor, and Pituitary.
+A deep learning-based image classification application that uses a Convolutional Neural Network (CNN) to classify brain MRI images into four categories: **Glioma, Meningioma, No Tumor, and Pituitary**.
 
 The application combines TensorFlow and Keras for deep learning, FastAPI for backend image processing and predictions, and Streamlit for an interactive user interface.
 
@@ -15,6 +17,7 @@ The application combines TensorFlow and Keras for deep learning, FastAPI for bac
 - Uses FastAPI to handle image uploads and predictions.
 - Displays the predicted category and confidence score.
 - Automatically downloads the trained model from GitHub Releases if it is not available locally.
+- Verifies the downloaded model using SHA-256 checksum validation.
 - Includes a separate About Project page.
 
 ## Classification Categories
@@ -63,14 +66,20 @@ The trained CNN model is hosted separately in GitHub Releases because of its lar
 The project uses a shared model loader (`src/model_loader.py`) to manage model loading:
 
 1. Checks whether the trained model exists in the local `models/` directory.
-2. If the model exists, it loads the local file.
-3. If the model is missing, it downloads the model automatically from GitHub Releases.
-4. Saves the downloaded model in the `models/` directory.
-5. Loads the model for prediction.
+2. Verifies the model's SHA-256 checksum to ensure file integrity.
+3. If the model is missing or its checksum is invalid, downloads a fresh copy from GitHub Releases.
+4. Verifies the downloaded model before saving it to the `models/` directory.
+5. Loads the verified model for prediction.
 
-Users do not need to download the model manually.
+Users do not need to download the model manually. An internet connection is required when the model needs to be downloaded.
 
 **Trained Model:** [Download brain_tumor_cnn.keras](https://github.com/Anjusha-E/brain-tumor-classification-cnn/releases/download/v1.0.0/brain_tumor_cnn.keras)
+
+**SHA-256 Checksum:**
+
+```text
+1fd54c4caf4373ac8c6f873512850b73e3c193dcf85dd169f337d219f2d6f00e
+```
 
 ## Dataset Description
 
@@ -226,7 +235,7 @@ pip install -r requirements.txt
 
 No manual model download is required.
 
-When the application starts, `src/model_loader.py` checks whether the trained model exists locally. If it is missing, the model is automatically downloaded from the GitHub Release and saved in the `models/` directory.
+When the application starts, `src/model_loader.py` checks whether the trained model exists locally. If it is missing or invalid, the model is automatically downloaded from the GitHub Release and saved in the `models/` directory.
 
 An internet connection is required for the initial download.
 
@@ -244,11 +253,11 @@ uvicorn app:app --reload
 
 Backend URL:
 
-http://127.0.0.1:8000
+[http://127.0.0.1:8000](http://127.0.0.1:8000)
 
 API Documentation:
 
-http://127.0.0.1:8000/docs
+[http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)
 
 ### 2. Start the Streamlit Frontend
 
@@ -260,7 +269,7 @@ streamlit run streamlit_app.py
 
 Frontend URL:
 
-http://localhost:8501
+[http://localhost:8501](http://localhost:8501)
 
 ### 3. Use the Application
 
@@ -288,6 +297,7 @@ The FastAPI backend provides an image classification endpoint.
 }
 ```
 
+*Example response only. Actual predictions and confidence scores depend on the uploaded image.*
 ## Limitations
 
 - The model is trained on a specific brain MRI dataset.
